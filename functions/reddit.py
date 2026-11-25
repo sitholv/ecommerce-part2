@@ -19,7 +19,7 @@ class RedditUnavailable(Exception):
 
 
 def fetch_posts():
-    """Return up to ten real posts with title, author and original URL."""
+    """Return ten posts at most with title, author and URL."""
     try:
         response = requests.get(
             URL,
