@@ -127,8 +127,8 @@ python manage.py test shop
 
 Tests include checkout rollback, stock limits, repeat submissions, ownership,
 private invoices, purchase verification, CSRF, escaping and reset-token expiry.
-The task's planning documents are in ../Planning/. Research answers are supplied
-as ../research_answers.pdf.
+The planning documents are in Planning/. Research answers are supplied
+as research_answers.pdf.
 
 ## Deployment boundary
 
