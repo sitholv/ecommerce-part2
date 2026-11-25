@@ -1,0 +1,12 @@
+{% extends "shop/base.html" %}
+{% block content %}
+    <h1>My invoices</h1>
+    {% for order in orders %}
+        <article class="panel">
+            <h2><a href="{% url 'invoice' order.pk %}">Invoice {{ order.pk }}</a></h2>
+            <p>{{ order.created_at|date:"j M Y, H:i" }} · R{{ order.total|floatformat:2 }}</p>
+        </article>
+    {% empty %}
+        <p>No purchases yet. <a href="{% url 'catalogue' %}">Browse the catalogue</a>.</p>
+    {% endfor %}
+{% endblock %}

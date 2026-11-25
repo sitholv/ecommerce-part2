@@ -1,0 +1,10 @@
+{% extends "shop/base.html" %}
+{% block content %}
+    <h1>Delete {{ listing.name }}?</h1>
+    <p>This permanently removes the listing. Deleting a store also removes its products. Existing invoices remain saved.</p>
+    <form method="post">
+        {% csrf_token %}
+        <button class="danger" type="submit">Confirm deletion</button>
+        <a href="{% url 'stores' %}">Cancel</a>
+    </form>
+{% endblock %}

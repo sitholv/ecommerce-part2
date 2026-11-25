@@ -1,0 +1,31 @@
+{% extends "shop/base.html" %}
+{% block content %}
+    <h1>My cart</h1>
+    {% if missing %}
+        <p class="notice">{{ missing }} unavailable product(s) were removed. You can check out the remaining products.</p>
+    {% endif %}
+    {% for row in rows %}
+        <article class="panel cart-row">
+            <div>
+                <h2>{{ row.product.name }}</h2>
+                <p>{{ row.quantity }} × R{{ row.product.price|floatformat:2 }} · {{ row.product.store.name }}</p>
+            </div>
+            <p class="price">R{{ row.total|floatformat:2 }}</p>
+            <form method="post" action="{% url 'cart_remove' row.product.pk %}">
+                {% csrf_token %}
+                <button type="submit">Remove</button>
+            </form>
+        </article>
+    {% empty %}
+        <p class="empty">Your cart is empty. <a href="{% url 'catalogue' %}">Browse the catalogue</a>.</p>
+    {% endfor %}
+    <p class="price">Total: R{{ total|floatformat:2 }}</p>
+    {% if rows %}
+        <form method="post" action="{% url 'checkout' %}">
+            {% csrf_token %}
+            <input type="hidden" name="checkout_key" value="{{ checkout_key }}">
+            <button class="primary" type="submit">Confirm order</button>
+        </form>
+        <p class="muted">Creates an invoice and records the order. No card payment is collected.</p>
+    {% endif %}
+{% endblock %}

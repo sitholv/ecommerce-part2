@@ -1,0 +1,6 @@
+{% extends "shop/base.html" %}
+{% block content %}
+    <h1>{{ title }}</h1>
+    <p>{{ body }}</p>
+    <a href="{% url 'reset_request' %}">Request a new reset link</a>
+{% endblock %}

@@ -1,0 +1,54 @@
+{% extends "shop/base.html" %}
+{% load roles %}
+{% block content %}
+    <p>
+        <a href="{% url 'store' product.store.pk %}">{{ product.store.name }}</a>
+    </p>
+    <h1>{{ product.name }}</h1>
+    <section class="panel">
+        <p>{{ product.description|linebreaksbr }}</p>
+        <p class="price">R{{ product.price|floatformat:2 }}</p>
+        <p>{{ product.stock }} available</p>
+        {% if is_buyer %}
+            <form method="post" action="{% url 'cart_add' product.pk %}">
+                {% csrf_token %}
+                {{ quantity_form.as_p }}<button type="submit" class="primary" {% if not product.stock %}disabled{% endif %}>Add to cart</button>
+            </form>
+        {% elif not user.is_authenticated %}
+            <a href="{% url 'login' %}">Log in as a buyer to shop</a>
+        {% endif %}
+        {% if owner %}
+            <div class="actions">
+                <a href="{% url 'product_edit' product.store.pk product.pk %}">Edit product</a>
+                <a href="{% url 'product_delete' product.pk %}">Delete product</a>
+            </div>
+        {% endif %}
+    </section>
+    <section>
+        <h2>Reviews</h2>
+        {% for review in reviews %}
+            <article class="panel">
+                <h3>{{ review.buyer.username }} · {{ review.rating }}/5</h3>
+                <p>{{ review.content }}</p>
+                <p class="muted">
+                    {% if review.purchase_verified %}
+                        Verified purchase
+                    {% else %}
+                        Unverified review
+                    {% endif %}
+                </p>
+            </article>
+        {% empty %}
+            <p>No reviews yet.</p>
+        {% endfor %}
+        {% if is_buyer %}
+            <h3>Write or update your review</h3>
+            <form method="post"
+                  action="{% url 'review' product.pk %}"
+                  class="panel editor">
+                {% csrf_token %}
+                {{ review_form.as_p }}<button type="submit">Save review</button>
+            </form>
+        {% endif %}
+    </section>
+{% endblock %}

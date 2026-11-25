@@ -1,0 +1,21 @@
+{% extends "shop/base.html" %}
+{% block content %}
+    <h1>Catalogue</h1>
+    <p class="muted">Browse {{ products|length }} product{{ products|length|pluralize }} from independent stores.</p>
+    <div class="products">
+        {% for product in products %}
+            <article class="panel">
+                <p class="muted">{{ product.store.name }}</p>
+                <h2>
+                    <a href="{% url 'product' product.pk %}">{{ product.name }}</a>
+                </h2>
+                <p>{{ product.description|truncatechars:120 }}</p>
+                <p class="price">R{{ product.price|floatformat:2 }}</p>
+                <p>{{ product.stock }} available</p>
+                <a href="{% url 'product' product.pk %}">View product</a>
+            </article>
+        {% empty %}
+            <p class="empty">No products yet. Vendors can register and create their first store.</p>
+        {% endfor %}
+    </div>
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends "shop/base.html" %}
+{% block content %}
+    <h1>Invoice {{ order.pk }}</h1>
+    <p>{{ order.created_at }} · {{ order.buyer.email }}</p>
+    {% for line in order.lines.all %}
+        <div class="panel cart-row">
+            <div>
+                <h2>{{ line.product_name }}</h2>
+                <p>{{ line.quantity }} × R{{ line.unit_price|floatformat:2 }}</p>
+            </div>
+            <p class="price">R{{ line.total|floatformat:2 }}</p>
+        </div>
+    {% endfor %}
+    <p class="price">Total: R{{ order.total|floatformat:2 }}</p>
+    <p>
+        Invoice email:
+        {% if order.email_sent %}
+            sent to the configured mail backend
+        {% else %}
+            awaiting delivery
+        {% endif %}
+        .
+    </p>
+{% endblock %}

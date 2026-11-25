@@ -1,0 +1,61 @@
+{% load static roles %}
+<!DOCTYPE html>
+<html lang="en-ZA">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <title>
+            {% block title %}
+                Bay Market
+            {% endblock %}
+        </title>
+        <link rel="stylesheet" href="{% static 'shop/style.css' %}">
+    </head>
+    <body>
+        <a class="skip" href="#main">Skip to content</a>
+        <header>
+            <a class="brand" href="{% url 'catalogue' %}">Bay Market<span>Independent stores. One basket.</span>
+            </a>
+            <button type="button"
+                    class="menu-toggle"
+                    aria-expanded="false"
+                    aria-controls="navigation"
+                    hidden>Menu</button>
+            <nav id="navigation" aria-label="Main navigation">
+                <a href="{% url 'catalogue' %}">Catalogue</a>
+                <a href="{% url 'stores' %}">Stores</a>
+                {% if is_buyer %}
+                    <a href="{% url 'cart' %}">My cart</a>
+                    <a href="{% url 'invoices' %}">My invoices</a>
+                {% endif %}
+                {% if is_vendor %}
+                    <a href="{% url 'my_stores' %}">My stores</a>
+                    <a href="{% url 'store_create' %}">Create store</a>
+                {% endif %}
+                {% if user.is_authenticated %}
+                    <form method="post" action="{% url 'logout' %}">
+                        {% csrf_token %}
+                        <button type="submit">Log out {{ user.username }}</button>
+                    </form>
+                {% else %}
+                    <a href="{% url 'login' %}">Log in</a>
+                    <a href="{% url 'register' %}">Register</a>
+                {% endif %}
+            </nav>
+        </header>
+        <script src="{% static 'shop/navigation.js' %}" defer></script>
+        <main id="main">
+            {% if messages %}
+                <div role="status">
+                    {% for message in messages %}
+                        <p class="notice">{{ message }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            {% block content %}{% endblock %}
+        </main>
+        <footer>
+            Bay Market · Prices in South African rand (ZAR). Local coursework marketplace.
+        </footer>
+    </body>
+</html>

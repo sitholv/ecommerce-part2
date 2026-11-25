@@ -1,0 +1,21 @@
+name: vs26060020556-commerce
+services:
+  database:
+    image: mariadb:11.4
+    environment:
+      MARIADB_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:?Set DB_ROOT_PASSWORD}
+      MARIADB_DATABASE: commerce_part1
+      MARIADB_USER: commerce
+      MARIADB_PASSWORD: ${DB_PASSWORD:?Set DB_PASSWORD}
+    ports:
+      - "127.0.0.1:33318:3306"
+    volumes:
+      - commerce_data:/var/lib/mysql
+      - ./docker/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 3s
+      timeout: 3s
+      retries: 30
+volumes:
+  commerce_data:
