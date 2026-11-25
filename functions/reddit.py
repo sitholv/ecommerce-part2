@@ -1,5 +1,4 @@
-"""Retrieve real public r/Python posts without inventing fallback
-content."""
+"""Retrieve real public posts without invented fallback content."""
 
 from urllib.parse import urlparse
 
@@ -11,8 +10,7 @@ USER_AGENT = "DjangoEcommerceApp/1.0"
 
 
 class RedditUnavailable(Exception):
-    """Represent transport, HTTP or malformed Reddit response
-    failures."""
+    """Represent transport, HTTP or malformed-response failures."""
 
     def __init__(self, message, status_code=None):
         """Retain the message and optional HTTP status only."""
@@ -21,8 +19,7 @@ class RedditUnavailable(Exception):
 
 
 def fetch_posts():
-    """GET up to ten actual posts, returning title, author and original
-    URL."""
+    """Return up to ten real posts with title, author and original URL."""
     try:
         response = requests.get(
             URL,
