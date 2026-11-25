@@ -165,8 +165,8 @@ python manage.py test shop
 ```
 
 The suite includes Part 1 regressions, real token authentication, API ownership,
-validation and external-service failure handling. See ../Planning/api_plan.md
-and ../Planning/api_sequence.pdf for representations, routes and interactions.
+validation and external-service failure handling. See Planning/api_plan.md
+and Planning/api_sequence.pdf for representations, routes and interactions.
 Do not include a database, .venv, caches, private tokens or collected static
 files in submission. Production needs a private secret, DEBUG disabled, trusted
 hosts, HTTPS, a production server and real email configuration.

@@ -60,8 +60,8 @@ def role_required(group, permission="shop.view_product"):
     """Require a named group before running a browser view.
 
     Both group membership and the named model permission are required.
-    Anonymous requests go to login; missing authority returns HTTP 403. The
-    wrapped view retains its original name and documentation.
+    Anonymous requests go to login; missing authority returns HTTP 403.
+    The wrapped view retains its original name and documentation.
     """
 
     def decorator(view):
