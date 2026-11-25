@@ -1,0 +1,17 @@
+{% extends "shop/base.html" %}
+{% block content %}
+    <h1>{{ title|default:"Independent stores" }}</h1>
+    <div class="products">
+        {% for store in stores %}
+            <article class="panel">
+                <h2>
+                    <a href="{% url 'store' store.pk %}">{{ store.name }}</a>
+                </h2>
+                <p>{{ store.description }}</p>
+                <p class="muted">Vendor: {{ store.vendor.username }}</p>
+            </article>
+        {% empty %}
+            <p class="empty">No stores yet. Register as a vendor to open one.</p>
+        {% endfor %}
+    </div>
+{% endblock %}

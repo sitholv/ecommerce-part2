@@ -1,0 +1,25 @@
+{% extends "shop/base.html" %}
+{% block title %}
+    Python community feed
+{% endblock %}
+{% block content %}
+    <h1>Python community feed</h1>
+    <p>Recent public posts from r/Python. Links open the original submitted pages.</p>
+    {% if error %}
+        <p role="alert">{{ error }}</p>
+    {% endif %}
+    <section aria-label="Recent posts">
+        {% for post in posts %}
+            <article class="panel">
+                <h2>
+                    <a href="{{ post.url }}" rel="noopener noreferrer">{{ post.title }}</a>
+                </h2>
+                <p>Posted by {{ post.author }}</p>
+            </article>
+        {% empty %}
+            {% if not error %}
+                <p>No posts were returned by Reddit.</p>
+            {% endif %}
+        {% endfor %}
+    </section>
+{% endblock %}
