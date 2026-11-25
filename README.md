@@ -7,8 +7,8 @@ Vusi Sithole · VS26060020556
 Start by cloning the personal portfolio project:
 
 ```bash
-git clone https://github.com/sitholv/ecommerce-part1.git
-cd ecommerce-part1
+git clone --branch part1 https://github.com/sitholv/ecommerce-part2.git
+cd ecommerce-part2
 python3 -m venv .venv
 source .venv/bin/activate
 sudo apt-get install python3-dev build-essential pkg-config default-libmysqlclient-dev
